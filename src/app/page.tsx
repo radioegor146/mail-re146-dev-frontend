@@ -123,12 +123,12 @@ export default function Index() {
             <div className={"w-full h-full flex flex-col"}>
                 <div className={"flex flex-row gap-5 p-5"}>
                     <Button className={"min-w-10 p-0"} variant={"outline"} onClick={() =>
-                        setCurrentAccount(generateRandomAccount())}><Loader/></Button>
-                    <Button className={"min-w-10 p-0"} variant={"outline"} onClick={() => copyEmail()}><Copy/></Button>
+                        setCurrentAccount(generateRandomAccount())} title={"New address"}><Loader/></Button>
+                    <Button className={"min-w-10 p-0"} variant={"outline"} onClick={() => copyEmail()} title={"Copy email"}><Copy/></Button>
                     <MailPicker account={currentAccount} onAccountChange={value => setAndSaveAccount(value)}
                                 domain={currentDomain} onDomainChange={value => setAndSaveDomain(value)}
                                 domains={domainsQuery.data}/>
-                    <Button className={"min-w-10 p-0"} onClick={() => mailQuery.refetch()}><RotateCw
+                    <Button className={"min-w-10 p-0"} onClick={() => mailQuery.refetch()} title={"Update inbox"}><RotateCw
                         className={mailQuery.isFetching ?
                             "animate-spin" : ""}/></Button>
                 </div>
