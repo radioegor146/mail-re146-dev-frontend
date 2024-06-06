@@ -13,4 +13,4 @@ services:
     environment:
       BASE_URL: /swagger
     ports:
-      - 127.0.0.1:13002:80
+      - 127.0.0.1:13002:8080
