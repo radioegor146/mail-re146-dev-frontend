@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    restart: always
+    ports:
+      - 127.0.0.1:13001:3000
+  swagger:
+    build:
+      context: .
+      dockerfile: Dockerfile.swagger
+    environment:
+      - BASE_URL: /swagger
+    ports:
+      - 127.0.0.1:13002:80

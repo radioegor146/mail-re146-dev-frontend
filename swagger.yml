@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: TempMail at re146.dev
+  description: |-
+    Temporary mail receiving service on re146.dev
+  contact:
+    name: "radioegor146"
+    url: https://re146.dev
+  version: 1.0.0
+servers:
+  - url: https://mail.re146.dev/
+tags:
+  - name: email
+    description: Mail recieving
+paths:
+  /api/domains:
+    get:
+      tags:
+        - email
+      summary: Get all available domains
+      description: Returns all domains
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                example: ['re146.dev']
+                items:
+                  type: string
+  /api/list/{mailboxId}:
+    get:
+      tags:
+        - email
+      summary: Get all mail by mailbox ID
+      description: Returns all mail
+      parameters:
+        - name: mailboxId
+          in: path
+          description: Mailbox ID (MD5 of full email)
+          required: true
+          schema:
+            type: string
+            format: hex
+          example: '6121f87980450cacb7e49b12d3707d7d'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mail'
+  /storage/{mailboxId}/{messageId}:
+    get:
+      tags:
+        - email
+      summary: Get mail contents by message ID
+      description: Returns mail contents
+      parameters:
+        - name: mailboxId
+          in: path
+          description: Mailbox ID (MD5 of full email)
+          required: true
+          schema:
+            type: string
+            format: hex
+          example: '6121f87980450cacb7e49b12d3707d7d'
+        - name: messageId
+          in: path
+          description: Message ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: mail-contents
+components:
+  schemas:
+    Mail:
+      type: object
+      properties:
+        from:
+          type: string
+          format: email
+        timestamp:
+          type: integer
+          format: uint64
+        subject:
+          type: string
+        message_id:
+          type: string

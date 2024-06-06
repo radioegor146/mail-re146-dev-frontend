@@ -7,12 +7,14 @@ export interface Mail {
     timestamp: number
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+
 export async function getMailAt(mailBoxId: string): Promise<Mail[]> {
-    return await (await fetch(`https://mail.re146.dev/api/list/${encodeURIComponent(mailBoxId)}`)).json();
+    return await (await fetch(`${BASE_URL}/api/list/${encodeURIComponent(mailBoxId)}`)).json();
 }
 
 export async function getMailDomains(): Promise<string[]> {
-    return ["re146.dev"];
+    return await (await fetch(`${BASE_URL}/api/domains`)).json();
 }
 
 export async function getAndParseMailContentAt(mailBoxId: string, messageId: string): Promise<Email> {
@@ -25,5 +27,5 @@ export async function getAndParseMailContentAt(mailBoxId: string, messageId: str
 }
 
 export function getMailContentUrl(mailBoxId: string, messageId: string): string {
-    return `https://mail.re146.dev/storage/${encodeURIComponent(mailBoxId)}/${encodeURIComponent(messageId)}`;
+    return `${BASE_URL}/storage/${encodeURIComponent(mailBoxId)}/${encodeURIComponent(messageId)}`;
 }

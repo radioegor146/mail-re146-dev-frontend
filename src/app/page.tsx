@@ -95,12 +95,12 @@ export default function Index() {
         queryClient.cancelQueries({queryKey: [MAIL_QUERY_KEY]}).then(() =>
             queryClient.refetchQueries({queryKey: [MAIL_QUERY_KEY]})).catch(() => {
         });
-    }, [currentDomain, currentAccount]);
+    }, [currentDomain, currentAccount, queryClient]);
 
     useEffect(() => {
         queryClient.refetchQueries({queryKey: [MAIL_DATA_QUERY_KEY]}).catch(() => {
         });
-    }, [selectedMessageId]);
+    }, [selectedMessageId, queryClient]);
 
     function copyEmail() {
         navigator.clipboard.writeText(`${currentAccount}@${currentDomain}`)
@@ -147,7 +147,7 @@ export default function Index() {
                 <div className={"flex flex-row p-5"}>
                     <div className={"flex-1"}>TempMail by <a href={"https://re146.dev"}
                                                              className={"underline"}>@radioegor146</a></div>
-                    <div><a href={"/"} className={"underline"}>API docs</a></div>
+                    <div><a href={"/swagger/"} className={"underline"}>API docs</a></div>
                 </div>
             </div>
         </ResizablePanel>

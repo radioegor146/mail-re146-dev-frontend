@@ -1,0 +1,3 @@
+FROM swagger/swagger-ui:latest
+COPY swagger.yml /app/swagger.yml
+ENV SWAGGER_JSON=/app/swagger.yml
